@@ -65,14 +65,21 @@ export const extractTextFromFile = async (
   next: NextFunction
 ) => {
   try {
-    // const buffer = await getS3Object(req.params.key);
-
-    // const response = await extractDataFromBuffer(buffer);
-    console.log(req.params.key);
-
     const url = await getFileUrlS3(req.params.key);
 
-    res.status(200).json(url);
+    let dob = "";
+    let expiryDate = "";
+
+    try {
+      const json = await extractDataFromFile(url);
+      const data = JSON.parse(json as string);
+      dob = data?.dob;
+      expiryDate = data?.expiryDate;
+    } catch (error) {
+      console.log(error);
+    }
+
+    res.status(200).json({ url, dob, expiryDate });
   } catch (error) {
     next(error);
   }

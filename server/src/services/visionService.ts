@@ -19,6 +19,7 @@ export const extractDataFromFile = async (url: string) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
+      response_format: { type: "json_object" },
       messages: [
         {
           role: "user",
@@ -34,7 +35,6 @@ export const extractDataFromFile = async (url: string) => {
         },
       ],
     });
-    console.log(response.choices[0]);
     return response.choices[0].message.content;
   } catch (error) {
     console.error(`Error selecting file ID: ${url}`, error);
