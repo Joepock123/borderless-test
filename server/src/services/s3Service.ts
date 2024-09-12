@@ -59,3 +59,22 @@ export const selectAllFilesS3 = async () => {
     throw new Error("Error selecting files");
   }
 };
+
+export const getS3Object = async (key: string): Promise<any> => {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+    });
+    const response = await s3Client.send(command);
+
+    if (!response.Body) {
+      throw new Error("File not found");
+    }
+
+    return response.Body;
+  } catch (error) {
+    console.error("Error getting file from S3:", error);
+    throw new Error("Could not retrieve file from S3");
+  }
+};

@@ -1,7 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 import {
-  selectFile,
+  extractTextFromFile,
+  selectFileUrl,
   selectFiles,
   uploadFile,
 } from "../controllers/fileController";
@@ -11,6 +12,6 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/", upload.single("file"), uploadFile);
 router.get("/", selectFiles);
-router.get("/:id", selectFile);
+router.put("/:key", extractTextFromFile);
 
 export default router;
