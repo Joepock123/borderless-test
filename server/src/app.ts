@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import { json, urlencoded } from "body-parser";
+import "dotenv/config";
 
 import fileRoutes from "./routes/fileRoutes";
 
