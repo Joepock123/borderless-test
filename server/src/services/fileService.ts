@@ -31,6 +31,7 @@ export const selectFileById = async (id: string): Promise<FileObject> => {
 export const selectAllFiles = async (): Promise<FileObject[]> => {
   try {
     const files = await openai.files.list();
+
     return files.data;
   } catch (error) {
     console.error(`Error selecting files`, error);

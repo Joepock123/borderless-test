@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  selectAllFiles,
-  selectFileById,
-  uploadFileToOpenAI,
-} from "../services/fileService";
+  getFileUrlS3,
+  selectAllFilesS3,
+  uploadFileToS3,
+} from "../services/s3Service";
 
 export const uploadFile = async (
   req: Request,
@@ -15,8 +15,7 @@ export const uploadFile = async (
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const filePath = req.file.path;
-    const result = await uploadFileToOpenAI(filePath);
+    const result = await uploadFileToS3(req.file);
 
     res
       .status(200)
@@ -36,7 +35,7 @@ export const selectFile = async (
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const file = await selectFileById(req.params.id);
+    const file = await getFileUrlS3(req.params.id);
 
     res.status(200).json({ message: "File selected successfully", file });
   } catch (error) {
@@ -50,7 +49,7 @@ export const selectFiles = async (
   next: NextFunction
 ) => {
   try {
-    const files = await selectAllFiles();
+    const files = await selectAllFilesS3();
     res
       .status(200)
       .json({ message: "File selected successfully", file: files });

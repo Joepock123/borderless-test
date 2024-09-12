@@ -61,3 +61,5 @@ pids/
 # MacOS specific file
 .AppleDouble
 .LSOverride
+
+uploads/
