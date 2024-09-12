@@ -53,9 +53,7 @@ export const selectFiles = async (
 ) => {
   try {
     const files = await selectAllFilesS3();
-    res
-      .status(200)
-      .json({ message: "File selected successfully", file: files });
+    res.status(200).json(files);
   } catch (error) {
     next(error);
   }
@@ -67,11 +65,14 @@ export const extractTextFromFile = async (
   next: NextFunction
 ) => {
   try {
-    const buffer = await getS3Object(req.params.key);
+    // const buffer = await getS3Object(req.params.key);
 
-    const response = await extractDataFromBuffer(buffer);
+    // const response = await extractDataFromBuffer(buffer);
+    console.log(req.params.key);
 
-    res.status(200).json({ message: "File selected successfully", response });
+    const url = await getFileUrlS3(req.params.key);
+
+    res.status(200).json(url);
   } catch (error) {
     next(error);
   }
