@@ -20,10 +20,13 @@ const PassportUpload: React.FC = () => {
   return (
     <>
       <div className="files-list-container">
-        <h2 className="files-list-container__header">Files</h2>
+        <h2 className="files-list-container__header">
+          Upload a passport image
+        </h2>
 
         <UploadForm />
 
+        <p>Uploaded files (click for info)</p>
         <ul className="files-list">
           {data?.map((fileName) => (
             <li

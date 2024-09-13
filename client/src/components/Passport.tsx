@@ -24,6 +24,9 @@ const Passport: React.FC<PassportProps> = ({ file }) => {
       <p>File: {file}</p>
       {data?.dob && <p>DOB: {data.dob}</p>}
       {data?.expiryDate && <p>Expiry: {data.expiryDate}</p>}
+      {data?.url && !data?.dob && !data?.expiryDate && (
+        <p>Could not extract data from file. Please try another upload.</p>
+      )}
       {data?.url && (
         <img src={data.url} alt={file} className="passport-image" />
       )}
